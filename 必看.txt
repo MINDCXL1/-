@@ -1,5 +1,5 @@
 sql文件传不进去，我就改成了excel类型的，导入的时候倒入excel类型的就可以导入表里了
-
+    //国家
     public function countrys(){
         $infos=db('country')->select();
         foreach ($infos as $a=>$b){
