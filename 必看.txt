@@ -1,1 +1,36 @@
-sqlÎÄ¼þ´«²»½øÈ¥£¬ÎÒ¾Í¸Ä³ÉÁËexcelÀàÐÍµÄ£¬µ¼ÈëµÄÊ±ºòµ¹ÈëexcelÀàÐÍµÄ¾Í¿ÉÒÔµ¼Èë±íÀïÁË
+sqlæ–‡ä»¶ä¼ ä¸è¿›åŽ»ï¼Œæˆ‘å°±æ”¹æˆäº†excelç±»åž‹çš„ï¼Œå¯¼å…¥çš„æ—¶å€™å€’å…¥excelç±»åž‹çš„å°±å¯ä»¥å¯¼å…¥è¡¨é‡Œäº†
+
+    public function countrys(){
+        $infos=db('country')->select();
+        foreach ($infos as $a=>$b){
+            $data[$a]['code']=$b['code'];
+            $data[$a]['countrys']=$b['name'];
+        }
+        $return = array('code'=>200,'table'=>$data);
+        echo json_encode($return);
+    }
+    //çœä»½
+    public function state(){
+        $param = Request::instance()->param();
+        $param=$param['data'];
+//        $param['code']='AAA';
+        $infos=db('state')->where("state='".$param['code']."'")->select();
+        foreach ($infos as $a=>$b){
+            $data[$a]['state_code']=$b['code'];
+            $data[$a]['state_name']=$b['name'];
+        }
+        $return = array('code'=>200,'table'=>$data);
+        echo json_encode($return);
+    }
+    //åœ°åŒº
+    public function city(){
+        $param = Request::instance()->param();
+        $param=$param['data'];
+//        $param['code']='CHN011';
+        $infos=db('city')->where("state_code='".$param['state_code']."'")->select();
+        foreach ($infos as $a=>$b){
+            $data[$a]['province']=$b['name'];
+        }
+        $return = array('code'=>200,'table'=>$data);
+        echo json_encode($return);
+    }
